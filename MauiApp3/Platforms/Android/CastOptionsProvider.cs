@@ -15,7 +15,7 @@ namespace MauiApp3.Platforms.Android
         public CastOptions GetCastOptions(Context appContext)
         {
             var options = new CastOptions.Builder()
-                .SetReceiverApplicationId("7AA05E47")
+                .SetReceiverApplicationId("XXX05E47")
                 .Build();
 
             return options;
