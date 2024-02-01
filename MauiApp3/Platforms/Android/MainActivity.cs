@@ -28,6 +28,7 @@ namespace MauiApp3
             // Call the asynchronous method to get the CastContext instance
             Android.Gms.Tasks.Task castContextTask = CastContext.GetSharedInstance(context, executor);
 
+            
             // Add a continuation task to handle completion
             castContextTask.AddOnCompleteListener(new OnCompleteListener(task =>
             {
@@ -35,7 +36,8 @@ namespace MauiApp3
                 {
                     // CastContext is initialized
                     var castContext = (CastContext)task.Result;
-                    // Do something with castContext...
+                    castContext.SetReceiverApplicationId("7AA05E47");
+                    
                 }
                 else
                 {
@@ -64,5 +66,5 @@ namespace MauiApp3
         }
 
     }
-    //castcontext.SetReceiverApplicationId("7AA05E47");
+
 }

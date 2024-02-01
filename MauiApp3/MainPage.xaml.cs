@@ -20,6 +20,16 @@
 
             SemanticScreenReader.Announce(CounterBtn.Text);
         }
+
+        //var customButton = new CustomMediaRouteButton();
+        //customButton.Clicked += OnCustomButtonClicked;
+
+        void OnCustomButtonClicked(object sender, EventArgs e)
+        {
+            // Handle the click event
+        }
+
+
     }
 
 }
