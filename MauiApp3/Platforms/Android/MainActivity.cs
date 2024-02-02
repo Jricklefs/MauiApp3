@@ -1,10 +1,14 @@
 ﻿using Android.App;
 using Android.Content;
 using Android.Content.PM;
+using Android.Gms.Cast;
 using Android.Gms.Cast.Framework;
 using Android.Gms.Tasks;
 using Android.OS;
+using Android.Util;
+using AndroidX.MediaRouter.Media;
 using Java.Util.Concurrent;
+using MauiApp3.Platforms.Android.Services;
 using System.Threading.Tasks;
 
 namespace MauiApp3
@@ -12,12 +16,20 @@ namespace MauiApp3
     [Activity(Theme = "@style/Maui.SplashTheme", MainLauncher = true, ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation | ConfigChanges.UiMode | ConfigChanges.ScreenLayout | ConfigChanges.SmallestScreenSize | ConfigChanges.Density)]
     public class MainActivity : MauiAppCompatActivity
     {
+        //private MediaRouter _mediaRouter;
+        //private MediaRouteSelector _mediaRouteSelector;
+        //private MyMediaRouterCallback _mediaRouterCallback;
+
+        public static Context AppContext { get; private set; }
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
+            AppContext = ApplicationContext;
 
-            // Asynchronously initialize CastContext
             InitializeCastContextAsync(ApplicationContext);
+
+            DependencyService.Register<IDeviceDiscoveryService, DeviceDiscoveryService>();
+            
         }
 
         private void InitializeCastContextAsync(Context context)
@@ -36,18 +48,20 @@ namespace MauiApp3
                 {
                     // CastContext is initialized
                     var castContext = (CastContext)task.Result;
-                    castContext.SetReceiverApplicationId("7AA05E47");
-                    
+                    Log.Debug("MainActivity", "CastContext initialized successfully.");
+     
                 }
                 else
                 {
                     // Handle initialization failure
                     Exception exception = task.Exception;
-                    // Log or display error...
+                    Log.Error("MainActivity", "Error initializing CastContext: " + exception);
                 }
             }));
 
         }
+
+
 
         // Helper class to handle task completion
         public class OnCompleteListener : Java.Lang.Object, IOnCompleteListener
@@ -64,6 +78,10 @@ namespace MauiApp3
                 _onComplete?.Invoke(task);
             }
         }
+
+
+
+
 
     }
 
