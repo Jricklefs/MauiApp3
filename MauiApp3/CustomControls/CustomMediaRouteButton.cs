@@ -22,7 +22,10 @@ namespace MauiApp3.CustomControls
             set => SetValue(IsEnabledProperty, value);
         }
 
-        public void OnClicked() => Clicked?.Invoke(this, EventArgs.Empty);
+        public void OnClicked()
+        {
+            Clicked?.Invoke(this, EventArgs.Empty);
+        }
 
         private static void OnIsEnabledChanged(BindableObject bindable, object oldValue, object newValue)
         {

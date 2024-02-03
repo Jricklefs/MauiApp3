@@ -32,9 +32,12 @@
                 Clicked="OnCounterClicked"
                 HorizontalOptions="Fill" />
 
+            <Label
+                
+         Text="{Binding CanCast}"
+         Style="{StaticResource SubHeadline}" />
 
-
-            <custom:CustomMediaRouteButton  Clicked="OnCustomButtonClicked" x:Name="CustomMediaBtn"/>
+            <custom:CustomMediaRouteButton  Clicked="OnCustomButtonClicked" x:Name="CustomMediaBtn" IsEnabled="{Binding CanCast}" />
         </VerticalStackLayout>
     </ScrollView>
 

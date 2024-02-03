@@ -6,10 +6,24 @@ namespace MauiApp3
     public partial class MainPage : ContentPage
     {
         int count = 0;
+        private bool _canCast;
 
+        public bool CanCast
+        {
+            get => _canCast;
+            set
+            {
+                if (_canCast != value)
+                {
+                    _canCast = value;
+                    OnPropertyChanged(nameof(CanCast));
+                }
+            }
+        }
         public MainPage()
         {
             InitializeComponent();
+            BindingContext = this;
             SubscribeToDeviceChanges();
         }
 
@@ -39,22 +53,22 @@ namespace MauiApp3
         private void SubscribeToDeviceChanges()
         {
             var deviceDiscoveryService = DependencyService.Get<IDeviceDiscoveryService>();
-            if (deviceDiscoveryService is DeviceDiscoveryService androidDeviceDiscoveryService)
-            {
-                androidDeviceDiscoveryService.DevicesChanged += OnDevicesChanged;
-            }
+            deviceDiscoveryService.DevicesChanged += OnDevicesChanged;
         }
 
         private void OnDevicesChanged(object sender, EventArgs e)
         {
-            // Assuming your CustomMediaRouteButton is named customMediaRouteButton
-            var ooo = "";
-            MainThread.BeginInvokeOnMainThread(() =>
+            MainThread.BeginInvokeOnMainThread(async () =>
             {
-                CustomMediaBtn.IsEnabled = true;
-                // Other UI updates can be done here
+                // Assuming you want to do something with the updated list of devices,
+                // like displaying them in the UI
+                var deviceDiscoveryService = DependencyService.Get<IDeviceDiscoveryService>();
+                var devices = await deviceDiscoveryService.GetAvailableDevicesAsync();
+
+                CanCast = devices.Any();
+                // TODO: Update the UI with the list of devices
+                // For example, if you have a ListView or similar control to display the devices
             });
-            // Optionally, you can also update the button's appearance here
         }
         // Don't forget to unsubscribe from the event when the page is destroyed
         protected override void OnDisappearing()

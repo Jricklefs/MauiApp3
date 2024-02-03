@@ -23,14 +23,13 @@ namespace MauiApp3.Platforms.Android.Services
             // Use the static context from MainActivity
             var context = MainActivity.AppContext;
 
-            _mediaRouter = MediaRouter.GetInstance(context);
-
             _mediaRouteSelector = new MediaRouteSelector.Builder()
             .AddControlCategory(CastMediaControlIntent.CategoryForCast("7AA05E47")) // Replace with your actual Cast receiver app ID.
             .Build();
 
             _mediaRouterCallback = new MediaRouterCallback(this);
 
+            _mediaRouter = MediaRouter.GetInstance(context);
             _mediaRouter.AddCallback(_mediaRouteSelector, _mediaRouterCallback, MediaRouter.CallbackFlagRequestDiscovery);
         }
 
