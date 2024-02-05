@@ -16,8 +16,8 @@ namespace MauiApp3
     [Activity(Theme = "@style/Maui.SplashTheme", MainLauncher = true, ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation | ConfigChanges.UiMode | ConfigChanges.ScreenLayout | ConfigChanges.SmallestScreenSize | ConfigChanges.Density)]
     public class MainActivity : MauiAppCompatActivity
     {
-        //private MediaRouter _mediaRouter;
-        //private MediaRouteSelector _mediaRouteSelector;
+        public static MediaRouter MediaRouterInstance { get; private set; }
+        public static MediaRouteSelector MediaRouteSelectorInstance { get; private set; }
         //private MyMediaRouterCallback _mediaRouterCallback;
 
         public static Context AppContext { get; private set; }
@@ -26,7 +26,13 @@ namespace MauiApp3
             base.OnCreate(savedInstanceState);
             AppContext = ApplicationContext;
 
-            InitializeCastContextAsync(ApplicationContext);
+            InitializeCastContextAsync(AppContext);
+
+            // Initialize MediaRouter and MediaRouteSelector
+            MediaRouterInstance = MediaRouter.GetInstance(AppContext);
+            MediaRouteSelectorInstance = new MediaRouteSelector.Builder()
+                .AddControlCategory(CastMediaControlIntent.CategoryForCast("7AA05E47"))
+                .Build();
 
             DependencyService.Register<IDeviceDiscoveryService, DeviceDiscoveryService>();
             

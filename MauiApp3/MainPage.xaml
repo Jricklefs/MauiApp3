@@ -37,7 +37,7 @@
          Text="{Binding CanCast}"
          Style="{StaticResource SubHeadline}" />
 
-            <custom:CustomMediaRouteButton  Clicked="OnCustomButtonClicked" x:Name="CustomMediaBtn" IsEnabled="{Binding CanCast}" />
+            <custom:CustomMediaRouteButton   x:Name="CustomMediaBtn"  />
         </VerticalStackLayout>
     </ScrollView>
 
