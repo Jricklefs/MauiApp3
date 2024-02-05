@@ -9,7 +9,6 @@ using Android.Util;
 using AndroidX.MediaRouter.Media;
 using Java.Util.Concurrent;
 using MauiApp3.Platforms.Android.Services;
-using System.Threading.Tasks;
 
 namespace MauiApp3
 {
@@ -35,7 +34,6 @@ namespace MauiApp3
                 .Build();
 
             DependencyService.Register<IDeviceDiscoveryService, DeviceDiscoveryService>();
-            
         }
 
         private void InitializeCastContextAsync(Context context)
@@ -46,7 +44,6 @@ namespace MauiApp3
             // Call the asynchronous method to get the CastContext instance
             Android.Gms.Tasks.Task castContextTask = CastContext.GetSharedInstance(context, executor);
 
-            
             // Add a continuation task to handle completion
             castContextTask.AddOnCompleteListener(new OnCompleteListener(task =>
             {
@@ -55,7 +52,6 @@ namespace MauiApp3
                     // CastContext is initialized
                     var castContext = (CastContext)task.Result;
                     Log.Debug("MainActivity", "CastContext initialized successfully.");
-     
                 }
                 else
                 {

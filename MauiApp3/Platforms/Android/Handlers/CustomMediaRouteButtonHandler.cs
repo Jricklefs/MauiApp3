@@ -17,56 +17,26 @@ namespace MauiApp3.Platforms.Android.Handlers
         public CustomMediaRouteButtonHandler() : base(Mapper)
         {
         }
-        protected override void ConnectHandler(MediaRouteButton platformView)
-        {
-            base.ConnectHandler(platformView);
-            // Perform any setup that requires the PlatformView to be present
-            SetEnabled(VirtualView.IsEnabled);
-        }
-
 
         protected override MediaRouteButton CreatePlatformView()
         {
-
             var mediaRouteButton = new MediaRouteButton(Context);
             mediaRouteButton.RouteSelector = MainActivity.MediaRouteSelectorInstance;
             return mediaRouteButton;
-
         }
 
 
-        private void OnMediaRouteButtonClicked(object sender, EventArgs e)
-        {
-            if (VirtualView != null)
-            {
-                VirtualView.OnClicked();
-            }
-        }
-
-        //protected override void DisconnectHandler(AndroidX.MediaRouter.App.MediaRouteButton platformView)
+        //private void SetEnabled(bool isEnabled)
         //{
-        //    platformView.Click -= OnMediaRouteButtonClicked;
-        //    base.DisconnectHandler(platformView);
+        //    //isEnabled = true;
+        //    if (PlatformView != null)
+        //    {
+        //        PlatformView.Enabled = isEnabled;
+        //        // Here you can adjust the visual state of the button,
+        //        // like changing the opacity or text color, to indicate that it's disabled
+        //        PlatformView.Alpha = isEnabled ? 1.0f : 0.5f;
+        //    }
         //}
-
-
-        //public static void MapIsEnabled(CustomMediaRouteButtonHandler handler, CustomMediaRouteButton customMediaRouteButton)
-        //{
-        //    handler.SetEnabled(customMediaRouteButton.IsEnabled);
-        //}
-
-
-        private void SetEnabled(bool isEnabled)
-        {
-            //isEnabled = true;
-            if (PlatformView != null)
-            {
-                PlatformView.Enabled = isEnabled;
-                // Here you can adjust the visual state of the button,
-                // like changing the opacity or text color, to indicate that it's disabled
-                PlatformView.Alpha = isEnabled ? 1.0f : 0.5f;
-            }
-        }
 
         public void UpdateIsEnabled(bool isEnabled)
         {
@@ -74,9 +44,7 @@ namespace MauiApp3.Platforms.Android.Handlers
             {
                 PlatformView.Enabled = isEnabled;
                 // Additional logic to update the visual state of the button
-                PlatformView.Alpha = isEnabled ? 1.0f : 0.5f;
-
-               
+               // PlatformView.Alpha = isEnabled ? 1.0f : 0.5f;
             }
         }
     }

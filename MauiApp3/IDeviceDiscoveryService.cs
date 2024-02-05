@@ -8,7 +8,7 @@ namespace MauiApp3
 {
     public interface IDeviceDiscoveryService
     {
-        event EventHandler DevicesChanged;
+       // event EventHandler DevicesChanged;
        // Task<IEnumerable<string>> GetAvailableDevicesAsync();
         //Task ConnectToDeviceAsync(string deviceName);
     }
